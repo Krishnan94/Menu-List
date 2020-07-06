@@ -10,6 +10,7 @@ import {COMMENTS} from '../shared/comment';
 import {LEADERS} from '../shared/leaders';
 import {PROMOTIONS} from '../shared/promotion';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import About from './AboutComponent';
 
 const Main=()=>{
     const [selectedDish,ChangeDish] = useState();
@@ -19,7 +20,13 @@ const Main=()=>{
           <Dishdetail dish={DISHES.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
             comments={COMMENTS.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
       );
-    };  
+    };
+    
+    const Aboutus = ()=>{
+      return (
+        <About leaders={LEADERS} />
+      )
+    }
         const HomePage = () => {
           return(
               <Home dish={DISHES.filter((dishes)=>dishes.featured)[0]}
@@ -35,6 +42,7 @@ const Main=()=>{
       <Switch>
               <Route path='/home' component={HomePage} />
               <Route exact path='/contactus' component={Contact} />} />
+              <Route exact path='/aboutus' component={Aboutus} />} />
               <Route exact path='/menu' component={() => <Menu dishes={DISHES} />} />
               <Route path='/menu/:dishId'component={DishWithId} />
               <Redirect to='/home' />
