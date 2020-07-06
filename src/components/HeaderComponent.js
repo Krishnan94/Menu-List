@@ -1,15 +1,41 @@
-import React from 'react';
-import {Navbar,NavbarBrand,Jumbotron} from 'reactstrap';
+import React,{useState} from 'react';
+import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 const Headaer= props=>{
+    const[isNavOpen,UpdateNavOpen]=useState(false);
+
+    const OnToggler= event=>{
+        UpdateNavOpen(true);
+    }
     return(
         <>
-        <Navbar dark>
-            <div class="container">
-        <NavbarBrand href="/" >Home</NavbarBrand>
+        <Navbar dark expand="md">
+            <div className="container">
+        <NavbarToggler onClick={OnToggler} />
+        <NavbarBrand className="mr-auto" href="/" >
+            <img src="assests/images/logo.png" height="30" width="31" alt="Logo"/>
+        </NavbarBrand>
+        <Collapse isOpen={isNavOpen} navbar >
+        <Nav navbar>
+                <NavItem>
+                     <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
+                </NavItem>
+                <NavItem>
+                     <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
+                    </NavItem>
+                <NavItem>
+                        <NavLink className="nav-link"  to='/menu'><span className="fa fa-list fa-lg"></span> Menu</NavLink>
+                </NavItem>
+                 <NavItem>
+                        <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                </NavItem>
+            </Nav>
+            </Collapse>
         </div>
+        </Navbar>
         <Jumbotron>
-        <div class="container">
+        <div className="container">
             <div className ="row row-header">
                 <div className="col-12 col-sm-6">
                 <h1>Indian Fusion</h1>
@@ -18,7 +44,7 @@ const Headaer= props=>{
             </div>
             </div>  
         </Jumbotron>
-      </Navbar>
+     
         </>
     );
 }
