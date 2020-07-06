@@ -1,9 +1,7 @@
 import React from 'react';
 import {Card,CardImg,CardImgOverlay,CardBody,CardText,CardTitle} from 'reactstrap';
 
-const Dishdetail = props =>{
-
-    const renderComments=comments=>{
+const RenderComments=({comments})=>{
         if(comments!=null){
 
             const comment = comments.map(comment=>{
@@ -29,7 +27,7 @@ const Dishdetail = props =>{
             return <div></div>
         }
     }
-    
+const Dishdetail = props =>{    
     if (props.dish != null){
     return(
         <div className="container">
@@ -44,7 +42,7 @@ const Dishdetail = props =>{
             </Card>
             </div>
             <div  className="col-12 col-md-5 m-1">
-                {renderComments(props.dish.comments)}
+                <RenderComments comments={(props.dish.comments)}/>
             </div>
 
          </div>

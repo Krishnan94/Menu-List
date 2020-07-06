@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import {Card,CardImg,CardImgOverlay,CardBody,CardText,CardTitle} from 'reactstrap';
-import Dishdetail from './DishdetailComponent'
 
 const Menu=(props)=>{   
        const menu = props.dishes.map(dish=>{
