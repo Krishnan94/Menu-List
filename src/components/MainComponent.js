@@ -4,34 +4,31 @@ import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
-import {DISHES} from '../shared/dishes';
 import Dishdetail from './DishdetailComponent';
-import {COMMENTS} from '../shared/comment';
-import {LEADERS} from '../shared/leaders';
-import {PROMOTIONS} from '../shared/promotion';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect,withRouter } from 'react-router-dom';
 import About from './AboutComponent';
+import {useSelector,useDispatch} from 'react-redux';
 
 const Main=()=>{
     const [selectedDish,ChangeDish] = useState();
-        
+    const counter = useSelector(state => state);
     const DishWithId = ({match}) => {
       return(
-          <Dishdetail dish={DISHES.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-            comments={COMMENTS.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+          <Dishdetail dish={counter.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+            comments={counter.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
       );
     };
     
     const Aboutus = ()=>{
       return (
-        <About leaders={LEADERS} />
+        <About leaders={counter.leaders} />
       )
     }
         const HomePage = () => {
           return(
-              <Home dish={DISHES.filter((dishes)=>dishes.featured)[0]}
-              promotion={PROMOTIONS.filter((promo)=>promo.featured)[0]}
-              leaders={LEADERS.filter((leader)=>leader.featured)[0]}
+              <Home dish={counter.dishes.filter((dishes)=>dishes.featured)[0]}
+              promotion={counter.promotions.filter((promo)=>promo.featured)[0]}
+              leaders={counter.leaders.filter((leader)=>leader.featured)[0]}
               />
           );
         }
@@ -43,7 +40,7 @@ const Main=()=>{
               <Route path='/home' component={HomePage} />
               <Route exact path='/contactus' component={Contact} />} />
               <Route exact path='/aboutus' component={Aboutus} />} />
-              <Route exact path='/menu' component={() => <Menu dishes={DISHES} />} />
+              <Route exact path='/menu' component={() => <Menu dishes={counter.dishes} />} />
               <Route path='/menu/:dishId'component={DishWithId} />
               <Redirect to='/home' />
       </Switch>
@@ -51,5 +48,7 @@ const Main=()=>{
     </div>
   );
 }
+
+
 
 export default Main;
