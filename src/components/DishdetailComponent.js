@@ -15,7 +15,7 @@ const CommentForm =props=> {
 
     const handleComment =event=>{
         ToggleModal();
-        //<CommentForm isModal={isModal} ToggleModal={ToggleModal}/>
+        props.addComment(props.dishId, values.rating, values.author, values.comment);
         
     }
    
@@ -90,7 +90,7 @@ const CommentForm =props=> {
     };
 
 
-const RenderComments=({comments})=>{
+const RenderComments=({comments, addComment, dishId})=>{
     
         if(comments!=null){
 
@@ -112,7 +112,7 @@ const RenderComments=({comments})=>{
             <div>
                 <h4>Comments</h4>
                 {comment}
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment}/>
         </div>
         );
         }
@@ -146,7 +146,10 @@ const Dishdetail = props =>{
             </Card>
             </div>
             <div  className="col-12 col-md-5 m-1">
-                <RenderComments comments={(props.comments)}/>
+                <RenderComments comments={props.comments}
+                addComment={props.addComment}
+                dishId={props.dish.id}
+                 />
             </div>
 
          </div>

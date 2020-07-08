@@ -10,12 +10,26 @@ import About from './AboutComponent';
 import {useSelector,useDispatch} from 'react-redux';
 
 const Main=()=>{
-    const [selectedDish,ChangeDish] = useState();
     const counter = useSelector(state => state);
+    const dispatch=useDispatch();
+
+    const  addComment = (dishId, rating, author, comment) =>{
+      dispatch({
+        type: ADD_COMMENT,
+        payload:{
+          dishId:dishId,
+          rating:rating,
+          author:author,
+          comment:comment
+        }
+      })
+    }
     const DishWithId = ({match}) => {
       return(
           <Dishdetail dish={counter.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-            comments={counter.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+            comments={counter.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} 
+            addComment={addComment} 
+            />
       );
     };
     
