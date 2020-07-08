@@ -8,22 +8,15 @@ import Dishdetail from './DishdetailComponent';
 import { Switch, Route, Redirect,withRouter } from 'react-router-dom';
 import About from './AboutComponent';
 import {useSelector,useDispatch} from 'react-redux';
+import { addComment } from '../redux/ActionCreators';
 
 const Main=()=>{
     const counter = useSelector(state => state);
     const dispatch=useDispatch();
 
-    const  addComment = (dishId, rating, author, comment) =>{
-      dispatch({
-        type: ADD_COMMENT,
-        payload:{
-          dishId:dishId,
-          rating:rating,
-          author:author,
-          comment:comment
-        }
-      })
-    }
+    
+
+      
     const DishWithId = ({match}) => {
       return(
           <Dishdetail dish={counter.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 

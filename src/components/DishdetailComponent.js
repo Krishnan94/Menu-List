@@ -2,6 +2,7 @@ import React,{Component,useState} from 'react';
 import {Card,CardImg,CardImgOverlay,Row,Col,Label,CardBody,CardText,ModalBody,Modal,ModalHeader,CardTitle,Breadcrumb,BreadcrumbItem,Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import {useDispatch} from 'react-redux';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -9,14 +10,19 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 const CommentForm =props=> {
     const[isModal,UpdateModal]=useState(false);
+    const dispatch = useDispatch();
     const ToggleModal= ()=>{
         UpdateModal(prevMode => !prevMode);
     }
 
-    const handleComment =event=>{
+    const handleComment =values=>{
         ToggleModal();
-        props.addComment(props.dishId, values.rating, values.author, values.comment);
         
+    }
+
+    const handleSubmitComment= values=>{
+        ToggleModal();
+        dispatch(props.addComment(props.dishId, values.rating, values.author, values.comment));  
     }
    
         return(
@@ -25,7 +31,7 @@ const CommentForm =props=> {
             <Modal isOpen={isModal} toggle={ToggleModal}>
             <ModalHeader isOpen={isModal} toggle={ToggleModal}>Submit Comment</ModalHeader>
             <ModalBody>
-            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+            <LocalForm onSubmit={(values) => handleSubmitComment(values)}>
                         <Row className="form-group">
                         <Col md={12}>
                                 <Label htmlFor="Rating" >Rating</Label>
@@ -47,7 +53,7 @@ const CommentForm =props=> {
                                 <Label htmlFor="Your Name" >Your Name</Label>
                                     </Col>
                                 <Col md={12}>
-                                    <Control.text model=".yourname" id="yourname" name="yourname"
+                                    <Control.text model=".author" id="author" name="author"
                                         className="form-control"
                                         validators={{
                                             required,minLength:minLength(3),maxLength:maxLength(15)
@@ -55,7 +61,7 @@ const CommentForm =props=> {
                                          />
                                          <Errors 
                                          className="text-danger"
-                                         model=".yourname"
+                                         model=".author"
                                          show="touched"
                                          messages={{
                                            required :'Required',
