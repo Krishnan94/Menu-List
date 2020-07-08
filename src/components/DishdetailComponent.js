@@ -3,6 +3,7 @@ import {Card,CardImg,CardImgOverlay,Row,Col,Label,CardBody,CardText,ModalBody,Mo
 import {Link} from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import {useDispatch} from 'react-redux';
+import {Loading} from './LoadingComponent';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -126,8 +127,27 @@ const RenderComments=({comments, addComment, dishId})=>{
             return <div></div>
         }
     }
-const Dishdetail = props =>{    
-    if (props.dish != null){
+const Dishdetail = props =>{
+    if(props.isLoading){
+        return(
+            <div className="container">
+                <div className="Row">
+                    <Loading />
+                </div>
+            </div>
+        )
+    }
+    else if(props.errMess){
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+
+            </div>
+        )
+    }    
+    else if (props.dish != null){
     return(
         <div className="container">
             <div class="row">

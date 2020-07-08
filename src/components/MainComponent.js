@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect} from 'react';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import Header from './HeaderComponent';
@@ -8,18 +8,24 @@ import Dishdetail from './DishdetailComponent';
 import { Switch, Route, Redirect,withRouter } from 'react-router-dom';
 import About from './AboutComponent';
 import {useSelector,useDispatch} from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment,fetchDishes } from '../redux/ActionCreators';
 
 const Main=()=>{
     const counter = useSelector(state => state);
     const dispatch=useDispatch();
 
-    
+    useEffect(() => {
+      dispatch(fetchDishes())
+   }, [dispatch])
 
+ 
+    
       
     const DishWithId = ({match}) => {
-      return(
-          <Dishdetail dish={counter.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+      return(        
+          <Dishdetail dish={counter.dishes.dishes.filter((dishes)=>dishes.featured)[0]}
+          isLoading ={counter.dishes.isLoading}
+          isErrMess={counter.dishes.errMess} 
             comments={counter.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} 
             addComment={addComment} 
             />
@@ -33,7 +39,9 @@ const Main=()=>{
     }
         const HomePage = () => {
           return(
-              <Home dish={counter.dishes.filter((dishes)=>dishes.featured)[0]}
+              <Home dish={counter.dishes.dishes.filter((dishes)=>dishes.featured)[0]}
+              dishesisLoading ={counter.dishes.isLoading}
+              dishesisErrMess={counter.dishes.errMess}
               promotion={counter.promotions.filter((promo)=>promo.featured)[0]}
               leaders={counter.leaders.filter((leader)=>leader.featured)[0]}
               />
