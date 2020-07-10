@@ -26,7 +26,6 @@ class Contact extends Component {
     
 
     render() {
-        const errors = this.validate(this.state.firstname,this.state.lastname,this.state.email,this.state.telnum)
     return(
         <div className="container">
             <Breadcrumb>
