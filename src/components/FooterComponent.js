@@ -7,7 +7,7 @@ const Footer =props=>{
 <div  className="footer page-footer mt-2 font-small footercolor">
 
   
-  <div className="container">
+  
 
   
     <div className="row text-center d-flex justify-content-center pt-5 mb-3">
@@ -98,7 +98,7 @@ const Footer =props=>{
 
  
 
-   </div>
+  
    </div>                
     );
 }

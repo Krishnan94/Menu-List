@@ -46,7 +46,7 @@ const Headaer= props=>{
     return(
         <>
         <Navbar dark expand="md">
-            <div className="container">
+           
         <NavbarToggler onClick={OnToggler} />
         <NavbarBrand className="mr-auto" href="/" >
             <img src="assests/images/logo.png" height="30" width="31" alt="Logo"/>
@@ -66,7 +66,7 @@ const Headaer= props=>{
                         <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
                 </NavItem>
             </Nav>
-            <Nav className="ml-auto pr-2" navbar>
+            <Nav className="ml-auto pr-4" navbar>
                 <div className="textcolor">
                     {isLogin? `Welcome ${userName} `:''}
                 </div>
@@ -79,7 +79,7 @@ const Headaer= props=>{
                 </NavItem>
             </Nav>
             </Collapse>
-        </div>
+       
         </Navbar>
         <div className="slider">
        <PromotionSlider />  
