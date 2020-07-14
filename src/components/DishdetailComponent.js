@@ -2,7 +2,7 @@ import React,{Component,useState} from 'react';
 import {Card,CardImg,CardImgOverlay,Row,Col,Label,CardBody,CardText,ModalBody,Modal,ModalHeader,CardTitle,Breadcrumb,BreadcrumbItem,Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import {Loading} from './LoadingComponent';
 
 const required = (val) => val && val.length;
@@ -11,6 +11,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 const CommentForm =props=> {
     const[isModal,UpdateModal]=useState(false);
+    const state=useSelector(state=>state);
     const dispatch = useDispatch();
     const ToggleModal= ()=>{
         UpdateModal(prevMode => !prevMode);
@@ -54,7 +55,7 @@ const CommentForm =props=> {
                                 <Label htmlFor="Your Name" >Your Name</Label>
                                     </Col>
                                 <Col md={12}>
-                                    <Control.text model=".author" id="author" name="author"
+                                    <Control.text model=".author" id="author" value={state.user} name="author"
                                         className="form-control"
                                         validators={{
                                             required,minLength:minLength(3),maxLength:maxLength(15)

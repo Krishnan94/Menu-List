@@ -6,6 +6,7 @@ import { Dishes } from './dishes';
 import { Comments } from './comments';
 import { Promotions } from './promotions';
 import { Leaders } from './leaders';
+import {Current_User} from './LoginUser'
 
 
 export const ConfigureStore = () => {
@@ -14,7 +15,8 @@ export const ConfigureStore = () => {
        dishes:Dishes,
        comments:Comments,
        promotions:Promotions,
-       leaders:Leaders
+       leaders:Leaders,
+       user:Current_User
     }),applyMiddleware(thunk,logger));
 
     return store;

@@ -14,6 +14,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 class Contact extends Component {
     constructor(props) {
         super(props);
+        
     }
         
 
@@ -26,6 +27,7 @@ class Contact extends Component {
     
 
     render() {
+        
     return(
         <div className="container">
             <Breadcrumb>
@@ -40,7 +42,7 @@ class Contact extends Component {
                 <div className="col-12">
                 <h3>Location Information</h3>
                 </div>
-                <div className="col-12 col-sm-4 offset-sm-1">
+                <div className="col-12 col-sm-4 mt-2 offset-sm-1">
                         <h5>Our Address</h5>
                         <address>
                         4050, Avenue St Kevin<br />
@@ -53,12 +55,13 @@ class Contact extends Component {
                 </div>
                 <div className="col-12 col-sm-6 offset-sm-1">
                     <h5>Map of our Location</h5>
+                    <img src="/assests/images/location.png" alt="Location" />
                 </div>
                 <div className="col-12 col-sm-11 offset-sm-1">
                     <div className="btn-group" role="group">
                         <a role="button" className="btn btn-primary m-1" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
                         <a role="button" className="btn btn-info m-1"><i className="fa fa-skype"></i> Skype</a>
-                        <a role="button" className="btn btn-success m-1" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
+                        <a role="button" className="btn btn-success m-1" href="mailto:indianfusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
                     </div>
                 </div>
             </div>

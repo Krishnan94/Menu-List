@@ -1,10 +1,18 @@
 import React,{useState} from 'react';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse,Label,Input, NavItem, Jumbotron,Modal,Button,ModalBody,ModalHeader,Form,FormGroup } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import {PromotionSlider} from './SliderComponent';
+import './Header.css';
+import {currentUser} from  '../redux/ActionCreators';
+import {useDispatch} from 'react-redux';
+
 
 const Headaer= props=>{
     const[isNavOpen,UpdateNavOpen]=useState(false);
     const[isModal,UpdateModal]=useState(false);
+    const [isLogin,setisLogin]=useState(false);
+    const[userName,setUserName]=useState();
+    const dispatch=useDispatch();
     let username=null;
     let password=null;
 
@@ -13,12 +21,26 @@ const Headaer= props=>{
     }
 
     const ToggleModal= ()=>{
+        if(isLogin){
+            setisLogin(prevMode => !prevMode);
+        }
+        else{
         UpdateModal(prevMode => !prevMode);
+        }
+
     }
 
     const handleLogin =event=>{
+       
+       
         ToggleModal();
         console.log("UserName is "+ username.value+"Password is "+ password.value);
+        if(!(username=="")){
+        setUserName(username.value.toUpperCase());
+        setisLogin(true);
+        
+        }
+    
         event.preventDefault();
     }
     return(
@@ -44,30 +66,28 @@ const Headaer= props=>{
                         <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
                 </NavItem>
             </Nav>
-            <Nav className="ml-auto" navbar>
+            <Nav className="ml-auto pr-2" navbar>
+                <div className="textcolor">
+                    {isLogin? `Welcome ${userName} `:''}
+                </div>
+            </Nav>
+            <Nav className="float-right" navbar>
                 <NavItem>
-                    <Button outline onClick={ToggleModal}>
-                        <span className="fa fa-sign-in fa-lg">Login</span>
+                    <Button  onClick={ToggleModal}>
+                        <span className="fa fa-sign-in fa-lg">{isLogin ? 'Logout': 'Login'}</span>
                     </Button>
                 </NavItem>
             </Nav>
             </Collapse>
         </div>
         </Navbar>
-        <Jumbotron>
-        <div className="container">
-            <div className ="row row-header">
-                <div className="col-12 col-sm-6">
-                <h1>Indian Fusion</h1>
-                       <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
-                </div>
-            </div>
-            </div>  
-        </Jumbotron>
+        <div className="slider">
+       <PromotionSlider />  
+       </div>
         <Modal isOpen={isModal} toggle={ToggleModal}>
             <ModalHeader isOpen={isModal} toggle={ToggleModal}>Login</ModalHeader>
             <ModalBody>
-                <Form onSubmit={handleLogin}>
+                <Form onSubmit={handleLogin} action="post">
                     <FormGroup>
                         <Label htmlFor="username">Username</Label>
                         <Input type="text" id="username" name="username" 
