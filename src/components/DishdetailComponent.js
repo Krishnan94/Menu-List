@@ -55,7 +55,7 @@ const CommentForm =props=> {
                                 <Label htmlFor="Your Name" >Your Name</Label>
                                     </Col>
                                 <Col md={12}>
-                                    <Control.text model=".author" id="author" value={state.user} name="author"
+                                    <Control.text model=".author" id="author" name="author"
                                         className="form-control"
                                         validators={{
                                             required,minLength:minLength(3),maxLength:maxLength(15)
